@@ -1,0 +1,29 @@
+/*
+ * @Author: Kanata You 
+ * @Date: 2022-06-21 00:54:15 
+ * @Last Modified by: Kanata You
+ * @Last Modified time: 2022-06-21 03:54:39
+ */
+
+.rpv-core__inner-page {
+  display: flex;
+  justify-content: center;
+}
+
+.rpv-core__page-layer {
+  padding-block: 20px;
+}
+
+.rpv-core__canvas-layer > canvas {
+  box-shadow: 4px 4px 12px 6px #888;
+  background-color: rgb(233,233,233);
+}
+
+.rpv-core__canvas-layer > canvas > * {
+  pointer-events: none;
+  user-select: none;
+}
+
+.rpv-core__text-layer {
+  display: none;
+}

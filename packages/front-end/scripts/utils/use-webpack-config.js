@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-01-24 16:09:18 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-03-20 16:08:57
+ * @Last Modified time: 2022-06-19 18:42:33
  */
 'use strict';
 
@@ -77,8 +77,6 @@ const hasJsxRuntime = (() => {
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // plugins
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
@@ -336,50 +334,6 @@ const useWebpackConfig = mode => {
                   },
                 },
                 undefined,
-                dir,
-                paths,
-                enableSourceMap
-              ),
-            },
-            // Opt-in support for SASS (using .scss or .sass extensions).
-            // By default we support SASS Modules with the
-            // extensions .module.scss or .module.sass
-            {
-              test:    sassRegex,
-              exclude: sassModuleRegex,
-              use:     useStyleLoaders(
-                isDev, {
-                  importLoaders: 3,
-                  sourceMap:     isProd
-                    ? enableSourceMap
-                    : isDev,
-                },
-                'sass-loader',
-                dir,
-                paths,
-                enableSourceMap
-              ),
-              // Don't consider CSS imports dead code even if the
-              // containing package claims to have no side effects.
-              // Remove this when webpack adds a warning or an error for this.
-              // See https://github.com/webpack/webpack/issues/6571
-              sideEffects: true,
-            },
-            // Adds support for CSS Modules, but using SASS
-            // using the extension .module.scss or .module.sass
-            {
-              test: sassModuleRegex,
-              use:  useStyleLoaders(
-                isDev, {
-                  importLoaders: 3,
-                  sourceMap:     isProd
-                    ? enableSourceMap
-                    : isDev,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
-                },
-                'sass-loader',
                 dir,
                 paths,
                 enableSourceMap

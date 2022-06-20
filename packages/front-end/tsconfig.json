@@ -32,21 +32,6 @@
       "@components/*": [
         "./src/components/*"
       ],
-      "@context/*": [
-        "./src/context/*"
-      ],
-      "@views": [
-        "./src/views/"
-      ],
-      "@views/*": [
-        "./src/views/*"
-      ],
-      "@objects": [
-        "./src/objects"
-      ],
-      "@objects/*": [
-        "./src/objects/*"
-      ],
       "@utils/*": [
         "./src/utils/*"
       ],

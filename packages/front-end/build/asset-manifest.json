@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "D:/project/@kyusho/QianMenu/packages/front-end/static/css/main.a6f8fca2.css",
+    "main.js": "D:/project/@kyusho/QianMenu/packages/front-end/static/js/main.fbf5b567.js",
+    "index.html": "D:/project/@kyusho/QianMenu/packages/front-end/index.html",
+    "static/media/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;": "D:/project/@kyusho/QianMenu/packages/front-end/static/media/javascript,__webpack_public_path__ = __webpack_base_uri__ = htmlWebpackPluginPublicPath;.1feff74f.bin",
+    "main.a6f8fca2.css.map": "D:/project/@kyusho/QianMenu/packages/front-end/static/css/main.a6f8fca2.css.map",
+    "main.fbf5b567.js.map": "D:/project/@kyusho/QianMenu/packages/front-end/static/js/main.fbf5b567.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a6f8fca2.css",
+    "static/js/main.fbf5b567.js"
+  ]
+}
