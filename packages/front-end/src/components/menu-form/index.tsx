@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-06-19 17:38:48 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 04:43:04
+ * @Last Modified time: 2022-06-21 19:54:30
  */
 
 import React from 'react';
@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 import type Menu from '@utils/menu';
 import HeaderPic from './header-pic';
+import GroupList from './group-list';
 
 
 const FormContainer = styled.section({
@@ -19,6 +20,7 @@ const FormContainer = styled.section({
   paddingBlock: '4vh',
   paddingInline: '30px',
   height: '92vh',
+  overflow: 'hidden scroll',
 });
 
 const FormElement = styled.article({});
@@ -107,24 +109,10 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
           dataUrl={data.headerPic || null}
           setDataUrl={setHeaderPic}
         />
-        {
-          data.groups.map((grp, i) => (
-            <React.Fragment key={i}>
-              <div>
-                拖拽交互终点
-              </div>
-              <div>
-                <label>{grp.label}</label>
-              </div>
-              <div>
-                菜单
-              </div>
-            </React.Fragment>
-          ))
-        }
-        <div>
-          新增分类
-        </div>
+        <GroupList
+          data={data.groups}
+          setData={pushAction}
+        />
       </FormElement>
     </FormContainer>
   );

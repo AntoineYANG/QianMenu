@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-06-19 20:03:48 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 23:15:18
+ * @Last Modified time: 2022-06-21 23:13:39
  */
 
 import React from 'react';
@@ -10,44 +10,29 @@ import styled from 'styled-components';
 
 import openFile from '@utils/open-file';
 import asyncEvent from '@utils/async-event';
-import { PAPER_WIDTH, headerPicHeight } from '@components/menu-printer';
+import { coverHeight, coverWidth } from '@components/menu-printer';
 
 
-const HeaderPicContainer = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: '#4a4a4a',
-  paddingBlock: '1.2rem',
-  '> label': {
-    width: '100%',
-    paddingBlock: '0.8em',
-    fontSize: '1.05rem',
-    fontWeight: 550,
-  },
-});
-
-const HeaderPicElement = styled.div({
+const CoverPicElement = styled.div({
   flexGrow: 0,
   flexShrink: 0,
   position: 'relative',
-  width: '40vh',
-  height: '25vh',
+  width: '18vh',
+  height: '14vh',
   overflow: 'hidden',
   color: '#555',
   border: '1px solid',
   userSelect: 'none',
-  transform: 'scale(0.97)',
+  transform: 'scale(0.94)',
   '&:hover': {
-    borderRadius: '12px',
+    borderRadius: '6px',
     backgroundColor: '#8883',
-    transform: 'scale(1.02)',
+    transform: 'scale(0.97)',
   },
   transition: 'color 200ms, border-radius 200ms, transform 200ms',
 });
 
-const HeaderPicValue = styled.div<{ data: string | null }>(({ data }) => ({
+const CoverPicValue = styled.div<{ data: string | null }>(({ data }) => ({
   display: data ? 'block' : 'none',
   position: 'absolute',
   top: 0,
@@ -62,7 +47,7 @@ const HeaderPicValue = styled.div<{ data: string | null }>(({ data }) => ({
   pointerEvents: 'none',
 }));
 
-const HeaderPicCover = styled.div<{ data: string | null }>(({ data }) => ({
+const CoverPicCover = styled.div<{ data: string | null }>(({ data }) => ({
   position: 'absolute',
   top: 0,
   left: 0,
@@ -86,8 +71,8 @@ const HeaderPicCover = styled.div<{ data: string | null }>(({ data }) => ({
 }));
 
 const ButtonSvg = styled.svg({
-  width: '4em',
-  height: '4em'
+  width: '2.4em',
+  height: '2.4em'
 });
 
 const ButtonSvgPath = styled.path({
@@ -100,15 +85,15 @@ const ButtonText = styled.span({
   margin: '0.4em 0 0.2em'
 });
 
-export interface HeaderPicProps {
+export interface CoverPicProps {
   dataUrl: string | null;
   setDataUrl: (url: string) => void;
 }
 
 /**
- * 显示选中的头图；当未打开头图时，展示此组件，点击后打开文件对话框.
+ * 显示选中的封面；当未打开封面时，展示此组件，点击后打开文件对话框.
  */
-const HeaderPic: React.FC<HeaderPicProps> = React.memo(function HeaderPic ({
+const CoverPic: React.FC<CoverPicProps> = React.memo(function CoverPic ({
   dataUrl,
   setDataUrl
 }) {
@@ -139,8 +124,8 @@ const HeaderPic: React.FC<HeaderPicProps> = React.memo(function HeaderPic ({
             img.src = u;
             img.onload = () => {
               const [w, h] = [img.width, img.height];
-              const cw = w / PAPER_WIDTH;
-              const ch = h / headerPicHeight;
+              const cw = w / coverWidth;
+              const ch = h / coverHeight;
 
               const canvas = document.createElement('canvas');
               const ctx = canvas.getContext('2d')!;
@@ -148,7 +133,7 @@ const HeaderPic: React.FC<HeaderPicProps> = React.memo(function HeaderPic ({
               if (ch >= cw) {
                 // 宽度填充，高度裁剪
                 const iw = w;
-                const ih = w / PAPER_WIDTH * headerPicHeight;
+                const ih = w / coverWidth * coverHeight;
                 const oh = 0;
                 const ov = (h - ih) / 2;
 
@@ -157,7 +142,7 @@ const HeaderPic: React.FC<HeaderPicProps> = React.memo(function HeaderPic ({
                 ctx.drawImage(img, oh, ov, iw, ih, 0, 0, iw, ih);
               } else {
                 // 高度填充，宽度裁剪
-                const iw = h / headerPicHeight * PAPER_WIDTH;
+                const iw = h / coverHeight * coverWidth;
                 const ih = h;
                 const oh = (w - iw) / 2;
                 const ov = 0;
@@ -179,31 +164,26 @@ const HeaderPic: React.FC<HeaderPicProps> = React.memo(function HeaderPic ({
   );
 
   return (
-    <HeaderPicContainer>
-      <label>
-        菜单封面
-      </label>
-      <HeaderPicElement>
-        <HeaderPicValue
-          data={dataUrl}
-        />
-        <HeaderPicCover
-          tabIndex={0}
-          onClick={handleClick}
-          data={dataUrl}
-          ref={e => e && (buttonRef.current = e)}
-        >
-          <ButtonSvg viewBox="0 0 20 20">
-            <ButtonSvgPath d="M4,10 H16 M10,4 V16" />
-          </ButtonSvg>
-          <ButtonText>
-            {'选择图片'}
-          </ButtonText>
-        </HeaderPicCover>
-      </HeaderPicElement>
-    </HeaderPicContainer>
+    <CoverPicElement>
+      <CoverPicValue
+        data={dataUrl}
+      />
+      <CoverPicCover
+        tabIndex={0}
+        onClick={handleClick}
+        data={dataUrl}
+        ref={e => e && (buttonRef.current = e)}
+      >
+        <ButtonSvg viewBox="0 0 20 20">
+          <ButtonSvgPath d="M4,10 H16 M10,4 V16" />
+        </ButtonSvg>
+        <ButtonText>
+          {'选择图片'}
+        </ButtonText>
+      </CoverPicCover>
+    </CoverPicElement>
   );
 });
 
 
-export default HeaderPic;
+export default CoverPic;

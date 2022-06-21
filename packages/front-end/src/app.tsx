@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-06-19 17:30:10 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 04:21:05
+ * @Last Modified time: 2022-06-21 22:30:51
  */
 
 import React from 'react';
@@ -28,94 +28,35 @@ const App: React.FC = React.memo(function App () {
   const [menu, setMenu] = React.useState<Menu>({
     headerPic: '',
     groups: [{
-      label: '类别 A',
+      label: '荤菜',
       plates: [{
-        name: '菜品 1',
-        describe: '菜品描述',
-        price: 1000,
+        name: '炸鸡',
+        price: 1800
+      }, {
+        name: '烤鱼',
+        price: 2400,
         preference: {
           labels: ['五香', '麻辣']
         }
       }, {
-        name: '菜品 2',
-        describe: '推荐理由',
-        price: 3050,
+        name: '薯条',
+        price: 850
       }, {
-        name: '菜品 3',
-        price: 2000,
+        name: '汤',
+        price: 500
       }, {
-        name: '菜品 4',
-        describe: '推荐理由',
-        price: 2400,
-      }],
+        name: '不知道',
+        price: 1500
+      }]
     }, {
-      label: '类别 B',
+      label: '什么',
       plates: [{
-        name: '菜品 5',
-        describe: '菜品描述',
-        price: 750,
-        preference: {
-          labels: ['五香', '麻辣'],
-          supposedIdx: 0
-        }
+        name: '薯条',
+        price: 850
       }, {
-        name: '菜品 6',
-        describe: '推荐理由',
-        price: 2800,
-      }],
-    }, {
-      label: '类别 A',
-      plates: [{
-        name: '菜品 1',
-        describe: '菜品描述',
-        price: 1000,
-      }, {
-        name: '菜品 2',
-        price: 3050,
-      }, {
-        name: '菜品 3',
-        price: 2000,
-      }, {
-        name: '菜品 4',
-        describe: '推荐理由',
-        price: 2400,
-      }, {
-        name: '菜品 5',
-        describe: '菜品描述',
-        price: 750,
-      }, {
-        name: '菜品 6',
-        price: 2800,
-      }, {
-        name: '菜品 5',
-        describe: '菜品描述',
-        price: 750,
-      }, {
-        name: '菜品 6',
-        describe: '推荐理由',
-        price: 2800,
-      }, {
-        name: '菜品 5',
-        describe: '菜品描述',
-        price: 750,
-      }, {
-        name: '菜品 6',
-        price: 2800,
-      }, {
-        name: '菜品 5',
-        describe: '菜品描述',
-        price: 750,
-      }],
-    }, {
-      label: '类别 B',
-      plates: [{
-        name: '菜品 5',
-        price: 750,
-      }, {
-        name: '菜品 6',
-        describe: '推荐理由',
-        price: 2800,
-      }],
+        name: '汤',
+        price: 500
+      }]
     }]
   });
 
