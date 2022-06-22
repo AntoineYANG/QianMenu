@@ -2,17 +2,19 @@
  * @Author: Kanata You 
  * @Date: 2022-06-21 19:14:50 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 22:26:24
+ * @Last Modified time: 2022-06-22 23:47:47
  */
 
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Input, Popconfirm, Checkbox } from 'antd';
+import { Button, Input, Popconfirm, Checkbox, Collapse } from 'antd';
 
 import Menu, { Plate, PlateGroup } from '@utils/menu';
 import CoverPic from './cover-pic';
 
 import 'antd/dist/antd.css';
+
+const { Panel } = Collapse;
 
 
 const GroupListContainer = styled.div({
@@ -267,7 +269,7 @@ const GroupEditor: React.FC<GroupEditorProps> = React.memo(function GroupEditor 
     <GroupItem>
       <div>
         <label>
-          组
+          分组名称
         </label>
         <Input
           placeholder="类别标题"
@@ -325,17 +327,22 @@ export interface GroupListProps {
     forward: (d: Readonly<Menu>) => Partial<Menu>,
     backward: (d: Readonly<Menu>) => Partial<Menu>
   ) => void;
+  setGroupOrder: (target: number, nextIdx: number) => void;
 }
 
 const GroupList: React.FC<GroupListProps> = React.memo(function GroupList ({
   data,
   setData,
+  setGroupOrder,
 }) {
+  const [dragging, setDragging] = React.useState<number | null>(null);
+
   return (
     <GroupListContainer>
       <label>
         菜单内容
       </label>
+      <Collapse accordion>
       {
         data.map((grp, i) => {
           const label = grp.label;
@@ -506,29 +513,99 @@ const GroupList: React.FC<GroupListProps> = React.memo(function GroupList ({
           };
 
           return (
-            <GroupEditor
-              key={i}
-              label={label}
-              setLabel={setLabel}
-              plates={grp.plates}
-              setPlate={setPlate}
-              addPlate={addPlate}
-              delPlate={delPlate}
-              onRemove={() => setData(
-                s => ({
-                  groups: s.groups.slice(0, -1)
-                }),
-                s => ({
-                  groups: [
-                    ...s.groups,
-                    grp,
-                  ]
-                })
-              )}
-            />
+            <React.Fragment key={i}>
+              {
+                typeof dragging === 'number' && (
+                  <div
+                    style={{
+                      backgroundColor: '#8888',
+                      cursor: 'grabbing',
+                      textAlign: 'center',
+                      userSelect: 'none',
+                    }}
+                    onMouseUp={() => {
+                      if (typeof dragging === 'number') {
+                        const idx = i > dragging ? i - 1 : i;
+
+                        if (dragging !== idx) {
+                          setGroupOrder(dragging, idx);
+                        }
+                      }
+                    }}
+                  >
+                    移动到这里
+                  </div>
+                )
+              }
+              <Panel
+                key={`${i}-item`}
+                header={label}
+                extra={dragging === null && (
+                  <span
+                    style={{
+                      userSelect: 'none',
+                      cursor: 'grab',
+                    }}
+                    onMouseDown={() => {
+                      setDragging(i);
+
+                      const cb = () => {
+                        setDragging(null);
+                        document.body.removeEventListener('mouseup', cb);
+                      };
+
+                      document.body.addEventListener('mouseup', cb);
+                    }}
+                  >
+                    移动
+                  </span>
+                )}
+              >
+                <GroupEditor
+                  key={i}
+                  label={label}
+                  setLabel={setLabel}
+                  plates={grp.plates}
+                  setPlate={setPlate}
+                  addPlate={addPlate}
+                  delPlate={delPlate}
+                  onRemove={() => setData(
+                    s => ({
+                      groups: s.groups.slice(0, -1)
+                    }),
+                    s => ({
+                      groups: [
+                        ...s.groups,
+                        grp,
+                      ]
+                    })
+                  )}
+                />
+              </Panel>
+            </React.Fragment>
           );
         })
       }
+      {
+        typeof dragging === 'number' && (
+          <div
+            style={{
+              backgroundColor: '#8888',
+              cursor: 'grabbing',
+              userSelect: 'none',
+              textAlign: 'center',
+            }}
+            onMouseUp={() => {
+              if (typeof dragging === 'number' && dragging !== data.length - 1) {
+                setGroupOrder(dragging, data.length - 1);
+              }
+            }}
+          >
+            移动到这里
+          </div>
+        )
+      }
+      </Collapse>
       <div>
         <Button
           type="primary"

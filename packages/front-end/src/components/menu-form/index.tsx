@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-06-19 17:38:48 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 19:54:30
+ * @Last Modified time: 2022-06-22 23:57:32
  */
 
 import React from 'react';
@@ -19,7 +19,8 @@ const FormContainer = styled.section({
   justifyContent: 'center',
   paddingBlock: '4vh',
   paddingInline: '30px',
-  height: '92vh',
+  width: '400px',
+  height: '100vh',
   overflow: 'hidden scroll',
 });
 
@@ -53,8 +54,8 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
   }, [data, pushAction]);
 
   /** 拖拽修改分组顺序 */
-  const setGroupOrder = React.useCallback((target: string, nextIdx: number) => {
-    const prevIdx = data.groups.findIndex(g => g.label === target);
+  const setGroupOrder = React.useCallback((target: number, nextIdx: number) => {
+    const prevIdx = target;
 
     pushAction(
       ({ groups }) => {
@@ -66,7 +67,7 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
 
         const others = [
           ...groups.slice(0, prevIdx),
-          ...groups.slice(prevIdx)
+          ...groups.slice(prevIdx + 1)
         ];
         const next = [
           ...others.slice(0, nextIdx),
@@ -87,7 +88,7 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
         
         const others = [
           ...groups.slice(0, nextIdx),
-          ...groups.slice(nextIdx)
+          ...groups.slice(nextIdx + 1)
         ];
         const next = [
           ...others.slice(0, prevIdx),
@@ -100,7 +101,7 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
         };
       }
     )
-  }, [data, pushAction]);
+  }, [pushAction]);
 
   return (
     <FormContainer>
@@ -112,6 +113,7 @@ const MenuForm: React.FC<MenuFormProps> = React.memo(function MenuForm ({
         <GroupList
           data={data.groups}
           setData={pushAction}
+          setGroupOrder={setGroupOrder}
         />
       </FormElement>
     </FormContainer>

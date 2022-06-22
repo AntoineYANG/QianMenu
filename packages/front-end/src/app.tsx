@@ -2,7 +2,7 @@
  * @Author: Kanata You 
  * @Date: 2022-06-19 17:30:10 
  * @Last Modified by: Kanata You
- * @Last Modified time: 2022-06-21 22:30:51
+ * @Last Modified time: 2022-06-22 23:58:40
  */
 
 import React from 'react';
@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import MenuPrinter from '@components/menu-printer';
 import Menu from '@utils/menu';
 import MenuForm from '@components/menu-form';
+import { Button } from 'antd';
 
 
 const AppBody = styled.main({
@@ -106,7 +107,7 @@ const App: React.FC = React.memo(function App () {
       // 增加新的记录
       actionsRef.current.push({ forward, backward });
       // 最多记录 20 条
-      actionsRef.current = actionsRef.current.slice(0, 20);
+      actionsRef.current = actionsRef.current.slice(actionsRef.current.length - 20);
       // 立即执行
       actionForward();
     },
@@ -123,6 +124,32 @@ const App: React.FC = React.memo(function App () {
       <MenuPrinter
         data={menu}
       />
+      <Button
+        type="primary"
+        disabled={actionFlagRef.current <= 0}
+        style={{
+          position: 'fixed',
+          right: '7em',
+          bottom: '2em',
+          zIndex: 99,
+        }}
+        onClick={actionBackward}
+      >
+        撤销
+      </Button>
+      <Button
+        type="primary"
+        disabled={actionFlagRef.current >= actionsRef.current.length}
+        style={{
+          position: 'fixed',
+          right: '2em',
+          bottom: '2em',
+          zIndex: 99,
+        }}
+        onClick={actionForward}
+      >
+        重做
+      </Button>
     </AppBody>
   );
 });
