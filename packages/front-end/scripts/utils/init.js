@@ -29,7 +29,8 @@ const init = env => {
     join(path.delimiter);
 
   process.on('unhandledRejection', err => {
-    throw err;
+    console.error(err);
+    // throw err;
   });
 
   return { ...process.env };

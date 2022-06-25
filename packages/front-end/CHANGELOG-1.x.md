@@ -1,6 +1,6 @@
 # front-end v1.x
 
-## 1.0.0 (2022/6/21 - 2022/6/23)
+## 1.0.0 (2022/6/21 - 2022/6/25)
 
 _\<version description\>_
 
@@ -18,5 +18,10 @@ _\<version description\>_
 + 🌱 **collapse** - AntoineYANG(814602569@qq.com) 2022/6/23, on _main_
 
 + 🌱 **menu form** - AntoineYANG(814602569@qq.com) 2022/6/21, on _main_
+
+
+### other
+
++ 🌱 **release version 1.0.0** - AntoineYANG(814602569@qq.com) 2022/6/25, on _main_
 
 

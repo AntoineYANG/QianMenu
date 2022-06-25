@@ -28,37 +28,45 @@ const AppBody = styled.main({
 const App: React.FC = React.memo(function App () {
   const [menu, setMenu] = React.useState<Menu>({
     headerPic: '',
-    groups: [{
-      label: '荤菜',
-      plates: [{
-        name: '炸鸡',
-        price: 1800
-      }, {
-        name: '烤鱼',
-        price: 2400,
-        preference: {
-          labels: ['五香', '麻辣']
-        }
-      }, {
-        name: '薯条',
-        price: 850
-      }, {
-        name: '汤',
-        price: 500
-      }, {
-        name: '不知道',
-        price: 1500
-      }]
-    }, {
-      label: '什么',
-      plates: [{
-        name: '薯条',
-        price: 850
-      }, {
-        name: '汤',
-        price: 500
-      }]
-    }]
+    // groups: [],
+    groups: new Array<0>(4).fill(0).map(() => ({
+      label: '',
+      plates: new Array<0>(Math.floor(Math.random() * 10) + 2).fill(0).map(_ => ({
+        name: '',
+        price: Math.floor(Math.random() * 120) * 50 + 1200,
+      }))
+    })),
+    // groups: [{
+    //   label: '荤菜',
+    //   plates: [{
+    //     name: '炸鸡',
+    //     price: 1800
+    //   }, {
+    //     name: '烤鱼',
+    //     price: 2400,
+    //     preference: {
+    //       labels: ['五香', '麻辣']
+    //     }
+    //   }, {
+    //     name: '薯条',
+    //     price: 850
+    //   }, {
+    //     name: '汤',
+    //     price: 500
+    //   }, {
+    //     name: '不知道',
+    //     price: 1500
+    //   }]
+    // }, {
+    //   label: '什么',
+    //   plates: [{
+    //     name: '薯条',
+    //     price: 850
+    //   }, {
+    //     name: '汤',
+    //     price: 500
+    //   }]
+    // }]
   });
 
   const actionsRef = React.useRef<{
